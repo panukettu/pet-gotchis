@@ -33,6 +33,7 @@ async function main() {
     if (!isOperator) {
       if (!process.env.PRIVATE_KEY_OWNER || !process.env.PRIVATE_KEY_OPERATOR) {
         console.log("Plz setup owner & operator key to approve pettings");
+        return;
       }
       const tx = await AavegotchiDiamond.setPetOperatorForAll(
         operator.address,
@@ -40,8 +41,6 @@ async function main() {
       );
       await tx.wait();
       console.log("Succesfully set", operator.address, "as pet operator");
-    } else {
-      console.log("Already a pet operator, starting to while it");
     }
   } else {
     operator = signers[0];
