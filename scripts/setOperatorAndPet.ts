@@ -5,7 +5,7 @@
 // Runtime Environment's members available in the global scope.
 import { ethers } from "hardhat";
 
-const OWNER_ADDRESS = "0x";
+const OWNER_ADDRESS = "0x763c823E2bdd66538C85736B1784031Fa4d993F6";
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
   // line interface.
@@ -52,7 +52,7 @@ async function main() {
     return;
   }
 
-  if (OWNER_ADDRESS === "0x") {
+  if (OWNER_ADDRESS.length === 2) {
     console.error("Set your OWNER_ADDRESS");
     return;
   }
