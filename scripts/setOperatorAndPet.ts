@@ -5,6 +5,7 @@
 // Runtime Environment's members available in the global scope.
 import { ethers } from "hardhat";
 
+// SET THIS
 const OWNER_ADDRESS = "0x";
 async function main() {
   // Hardhat always runs the compile task when running scripts with its command
@@ -22,7 +23,7 @@ async function main() {
   let operator;
 
   if (signers.length === 2) {
-    let owner = signers[0];
+    const owner = signers[0];
     operator = signers[1];
 
     const isOperator = AavegotchiDiamond.isPetOperatorForAll(
@@ -46,7 +47,7 @@ async function main() {
     operator = signers[0];
   }
 
-  if (!!process.env.PRIVATE_KEY_OWNER) {
+  if (process.env.PRIVATE_KEY_OWNER) {
     console.log("Remove your owner key from the env now for SaFu plz");
     return;
   }
@@ -71,7 +72,9 @@ async function main() {
     const canInteract = nextInteract - currentTime < 0;
 
     if (canInteract) {
-      const tx = await AavegotchiDiamond.interact(gotchiInfo.map((i) => i[0]));
+      const tx = await AavegotchiDiamond.interact(
+        gotchiInfo.filter((i) => Number(i.tokenId) !== 0).map((i) => i[0])
+      );
       await tx.wait();
       console.log("Succesfully petted", gotchiInfo.length, "gotchis");
     } else {
